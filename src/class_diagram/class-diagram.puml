@@ -51,6 +51,8 @@ class MineralWater extends Product
 
 ' --- Context Core ---
 class VendingMachine {
+    - id: int
+    - location: pair<float, float>
     - state: VendingMachineState
     - inventory: List<Product>
     + setState(state: VendingMachineState)
@@ -62,10 +64,10 @@ class VendingMachine {
 }
 
 ' --- Relationships ---
-VendingMachine o--> VendingMachineState : "tracks state"
-VendingMachine o--> PaymentStrategy : "uses strategy"
-VendingMachine o--> VendingMachineObserver : "notifies"
+VendingMachine "1" o--> "1" VendingMachineState : "tracks state"
+VendingMachine "1" o--> "1" PaymentStrategy : "uses strategy"
+VendingMachine "1" o--> "*" VendingMachineObserver : "notifies"
 VendingMachine "1" *-- "*" Product : "contains"
-ProductFactory ..> Product : "<<create>>"
+ProductFactory "1" ..> "*" Product : "<<create>>"
 
 @enduml
