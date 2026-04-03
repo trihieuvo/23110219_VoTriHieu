@@ -1,0 +1,73 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+' --- Factory Pattern (Product Creation) ---
+class ProductFactory {
+    + {static} createProduct(type: String): Product
+}
+
+' --- Observer Pattern (Notifications) ---
+interface VendingMachineObserver <<Interface>> {
+    + update(machine: VendingMachine)
+}
+
+class InventoryNotifier implements VendingMachineObserver
+class AdminNotifier implements VendingMachineObserver
+
+' --- Strategy Pattern (Payment) ---
+interface PaymentStrategy <<Interface>> {
+    + pay(amount: double): boolean
+}
+
+class CashPayment implements PaymentStrategy
+class StudentCardPayment implements PaymentStrategy
+class EWalletPayment implements PaymentStrategy
+
+' --- State Pattern (Machine States) ---
+interface VendingMachineState <<Interface>> {
+    + insertMoney()
+    + selectProduct()
+    + dispense()
+}
+
+class ReadyState implements VendingMachineState
+class ProcessingPaymentState implements VendingMachineState
+class DispensingState implements VendingMachineState
+class OutOfStockState implements VendingMachineState
+
+' --- Domain Models ---
+abstract class Product <<Abstract>> {
+    - name: String
+    - price: double
+    - quantity: int
+    + getName()
+    + getPrice()
+}
+
+class Tea extends Product
+class SoftDrink extends Product
+class MineralWater extends Product
+
+' --- Context Core ---
+class VendingMachine {
+    - id: int
+    - location: pair<float, float>
+    - state: VendingMachineState
+    - inventory: List<Product>
+    + setState(state: VendingMachineState)
+    + displayProducts()
+    + selectProduct()
+    + insertMoney()
+    + dispenseProduct()
+    + notifyObservers()
+}
+
+' --- Relationships ---
+VendingMachine "1" o--> "1" VendingMachineState : "tracks state"
+VendingMachine "1" o--> "1" PaymentStrategy : "uses strategy"
+VendingMachine "1" o--> "*" VendingMachineObserver : "notifies"
+VendingMachine "1" *-- "*" Product : "contains"
+ProductFactory "1" ..> "*" Product : "<<create>>"
+
+@enduml

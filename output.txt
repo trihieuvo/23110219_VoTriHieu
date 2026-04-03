@@ -1,0 +1,28 @@
+
+--- Available Products ---
+Tea ($1.5) - Stock: 5
+Soft Drink ($2.0) - Stock: 2
+Mineral Water ($1.0) - Stock: 10
+
+--- Transaction 1: Buying Tea ---
+Selected Tea ($1.5)
+Processing E-Wallet payment of $1.5
+Payment successful.
+Dispensing Tea
+[Inventory Notifier] Tea sold. Remaining: 4
+[Admin Notifier] Tea sold. Remaining: 4
+
+--- Transaction 2: Buying Soft Drink (Low Stock Alert) ---
+Selected Soft Drink ($2.0)
+Processing E-Wallet payment of $2.0
+Payment successful.
+Dispensing Soft Drink
+[Inventory Notifier] Soft Drink sold. Remaining: 1
+[Admin Notifier] Soft Drink sold. Remaining: 1
+[Inventory Notifier] LOW STOCK ALERT: Soft Drink has only 1 left!
+[Admin Notifier] LOW STOCK ALERT: Soft Drink has only 1 left!
+
+--- Available Products ---
+Tea ($1.5) - Stock: 4
+Soft Drink ($2.0) - Stock: 1
+Mineral Water ($1.0) - Stock: 10
